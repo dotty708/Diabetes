@@ -2,8 +2,18 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.font_manager as fm
 
 # 한글 폰트 깨짐 방지 (스트림릿 클라우드에서는 영어 사용 권장)
+plt.rcParams['axes.unicode_minus'] = False
+
+# 나눔고딕 폰트 경로 지정
+font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
+try:
+    fm.fontManager.addfont(font_path)
+    plt.rcParams['font.family'] = 'NanumGothic'
+except FileNotFoundError:
+    pass  # 폰트가 없으면 기본값 사용
 plt.rcParams['axes.unicode_minus'] = False
 
 # -------------------------------
