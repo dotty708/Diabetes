@@ -3,7 +3,32 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.font_manager as fm
+import numpy as np
 
+# -------------------------------
+# 데이터 전처리 함수
+# -------------------------------
+def preprocess_data(df):
+    df = df.copy()  # 원본 데이터 보존
+
+    # 0이 결측치인 컬럼들 (임신 횟수, Outcome은 제외!)
+    cols_with_zero_missing = [
+        "Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI"
+    ]
+
+    # 1단계: 0을 결측치(NaN)로 변환
+    for col in cols_with_zero_missing:
+        df[col] = df[col].replace(0, np.nan)
+
+    # 2단계: 결측치를 '같은 Outcome 그룹의 중앙값'으로 채우기
+    #        (당뇨/정상 그룹 특성을 살리기 위해 그룹별로 채움)
+    for col in cols_with_zero_missing:
+        df[col] = df.groupby("Outcome")[col].transform(
+            lambda x: x.fillna(x.median())
+        )
+
+    return df
+    
 # 한글 폰트 깨짐 방지 (스트림릿 클라우드에서는 영어 사용 권장)
 plt.rcParams['axes.unicode_minus'] = False
 
