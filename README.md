@@ -6,6 +6,7 @@
 🔗 **배포 링크** : https://araboza-alzheimer.streamlit.app/
 
 📊 **치매 데이터 출처** : https://www.kaggle.com/datasets/rabieelkharoua/alzheimers-disease-dataset
+
 📊 **당뇨병 데이터 출처** : https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database
 
 ---
